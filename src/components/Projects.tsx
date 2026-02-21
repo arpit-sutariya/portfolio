@@ -15,7 +15,7 @@ function ProjectCard({
   project: (typeof PROJECTS)[0];
   index: number;
 }) {
-  const { ref, isInView } = useInView();
+  const { ref, isInView } = useInView<HTMLAnchorElement>();
 
   return (
     <motion.a

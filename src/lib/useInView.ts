@@ -8,12 +8,12 @@ interface UseInViewOptions {
   once?: boolean;
 }
 
-export function useInView({
+export function useInView<T extends HTMLElement = HTMLDivElement>({
   threshold = 0.15,
   rootMargin = "0px 0px -60px 0px",
   once = true,
 }: UseInViewOptions = {}) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<T>(null);
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {

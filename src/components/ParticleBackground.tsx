@@ -31,10 +31,14 @@ export default function ParticleBackground() {
       radius: number;
       opacity: number;
       time: number;
+      canvasWidth: number;
+      canvasHeight: number;
 
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+      constructor(canvasWidth: number, canvasHeight: number) {
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
         this.baseX = this.x;
         this.baseY = this.y;
         this.vx = (Math.random() - 0.5) * 0.2;
@@ -54,13 +58,13 @@ export default function ParticleBackground() {
         this.y = this.baseY + waveY + this.vy;
 
         // Wrap around edges
-        if (this.x < 0) this.baseX = canvas.width;
-        if (this.x > canvas.width) this.baseX = 0;
-        if (this.y < 0) this.baseY = canvas.height;
-        if (this.y > canvas.height) this.baseY = 0;
+        if (this.x < 0) this.baseX = this.canvasWidth;
+        if (this.x > this.canvasWidth) this.baseX = 0;
+        if (this.y < 0) this.baseY = this.canvasHeight;
+        if (this.y > this.canvasHeight) this.baseY = 0;
       }
 
-      draw() {
+      draw(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = `rgba(201, 169, 110, ${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -71,7 +75,7 @@ export default function ParticleBackground() {
     // Create particles
     const particles: Particle[] = [];
     for (let i = 0; i < 6000; i++) {
-      particles.push(new Particle());
+      particles.push(new Particle(canvas.width, canvas.height));
     }
 
     // Animation loop
@@ -80,7 +84,7 @@ export default function ParticleBackground() {
 
       particles.forEach((particle) => {
         particle.update();
-        particle.draw();
+        particle.draw(ctx);
       });
 
       requestAnimationFrame(animate);
