@@ -3,9 +3,9 @@ import "./globals.css";
 import ParticleBackground from "@/components/ParticleBackground";
 
 export const metadata: Metadata = {
-  title: "<i>Arpit Sutariya</i> — Data Scientist & ML Engineer",
+  title: "Data Scientist & ML Engineer",
   description:
-    "Portfolio of <i>Arpit Sutariya</i> — Data Scientist, ML Engineer, and AI builder. USC Applied Data Science graduate.",
+    "Portfolio of Arpit Sutariya — Data Scientist, ML Engineer, and AI builder. USC Applied Data Science graduate.",
   keywords: [
     "Data Science",
     "Machine Learning",
