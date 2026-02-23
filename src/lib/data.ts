@@ -6,8 +6,8 @@ export const PERSONAL = {
   email: "arpitsutariya13@gmail.com",
   phone: "+1 (408)-385-4081",
   location: "Los Angeles, California",
-  linkedin: "https://www.linkedin.com/in/arpitsutariya/",
-  github: "https://github.com/",
+  linkedin: "www.linkedin.com/in/arpit-sutariya-6194a5223",
+  github: "https://github.com/arpit-sutariya",
   tagline:
     "Turning raw data into decisions. I build predictive models, AI agents, and analytics systems that bridge complex engineering with real-world impact.",
 };
