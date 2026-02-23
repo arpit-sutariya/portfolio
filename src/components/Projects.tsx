@@ -26,7 +26,7 @@ function ProjectCard({
       initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease, delay: index * 0.12 }}
-      className="group relative flex flex-col bg-bg-card border border-border rounded-xl p-7 hover:border-border-hover hover:bg-bg-card-hover hover:-translate-y-1 transition-all duration-400"
+      className="group relative flex flex-col bg-bg-card border border-border rounded-xl p-7 hover:border-border-hover hover:bg-bg-card-hover hover:-translate-y-1 transition-all duration-400 cursor-pointer"
     >
       {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl" />

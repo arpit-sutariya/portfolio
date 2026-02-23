@@ -115,7 +115,7 @@ export const PROJECTS = [
     description:
       "NL-to-SQL/NoSQL system using GPT-4 with schema-aware prompting. Enables non-technical users to run complex aggregations, joins, and time-series queries without writing SQL — reducing manual query effort by 70%. Query validation pipeline achieves 92% first-pass accuracy.",
     tech: ["Python", "GPT-4", "PostgreSQL", "MongoDB", "Streamlit", "Plotly"],
-    link: "#", // Replace with your actual GitHub link
+    link: "https://github.com/arpit-sutariya/chatmydb",
     metrics: [
       { value: "70%", label: "Less manual effort" },
       { value: "92%", label: "Query accuracy" },
@@ -127,7 +127,7 @@ export const PROJECTS = [
     description:
       "Multi-agent analytics system built with LangGraph that performs end-to-end manufacturing data analysis: automated SQL querying, regression analysis, K-Means clustering, ANOVA, and correlation analysis on factory sensor data with auto-generated visualizations.",
     tech: ["LangChain", "LangGraph", "OpenAI", "PostgreSQL", "Streamlit", "Plotly"],
-    link: "#", // Replace with your actual GitHub link
+    link: "https://github.com/arpit-sutariya/opsbrainllm",
     metrics: [
       { value: "6", label: "Analysis types" },
       { value: "E2E", label: "Automation" },
@@ -139,7 +139,7 @@ export const PROJECTS = [
     description:
       "Computer vision pipeline using MediaPipe Pose to track joint angles across 6 exercises in real time. Signal processing and angle interpolation count reps with high precision, with aggregate analytics displayed on a React dashboard.",
     tech: ["Python", "Flask", "React", "MediaPipe", "PostgreSQL"],
-    link: "#", // Replace with your actual GitHub link
+    link: "https://github.com/arpit-sutariya/gymai",
     metrics: [
       { value: "6", label: "Exercises tracked" },
       { value: "RT", label: "Real-time" },
