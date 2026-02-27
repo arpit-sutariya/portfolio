@@ -84,14 +84,14 @@ export const EXPERIENCE = [
     ],
   },
   {
-    role: "Data Science & ML Intern",
+    role: "Web Developer Intern",
     company: "Vidyavardhini's College of Engineering & Technology",
     location: "Mumbai, India",
     period: "Jan 2023 — May 2023",
     bullets: [
-      "Curated datasets from 15+ web sources using BeautifulSoup, Scrapy & Selenium; designed MongoDB schemas and ETL workflows, boosting data collection efficiency by 37%.",
-      "Developed an NLP text classification model using TF-IDF and ensemble methods (Logistic Regression, Random Forest, XGBoost), achieving 82% accuracy and 0.79 F1-score.",
-      "Built a Flask REST API with Redis caching for model serving, reducing inference latency by 35%.",
+      "Built a full-stack web application using React and Flask, extracting and displaying data from user-provided sources with Tailwind CSS for reponsive UI and JWT authentication for secure access.",
+      "Reduced API latency by 35% and supported 500+ concurrent users through Redis caching and optimized RESTful API design with request validation.",
+      "Developed a text classification feature using scikit-learn with TF-IDF vectorization, achieving 82% accuracy and exposing predictions via REST endpoints.",
     ],
   },
 ];
