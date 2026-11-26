@@ -34,16 +34,17 @@ export default function Hero() {
         </div>
 
         <h1 className="mt-8 max-w-[900px] font-serif text-[clamp(2.4rem,5.6vw,4.75rem)] leading-[1] tracking-[-0.02em] md:mt-12">
-          I build data systems &amp; <em className="text-accent">AI agents</em> you
-          can actually <em>trust.</em>
+          I build software, data systems &amp;{" "}
+          <em className="text-accent">AI</em> you can actually <em>trust.</em>
         </h1>
 
         <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-12">
           <p className="max-w-[420px] text-[0.95rem] leading-[1.65] text-muted md:col-span-5">
-            <span className="text-ink">Hi, I&apos;m Arpit,</span> a data &amp; ML
-            engineer. I design pipelines that move millions of records, retrieval
-            systems that find the right thing, and LLM agents with human approval,
-            evals, and failure testing built in.
+            <span className="text-ink">Hi, I&apos;m Arpit,</span> a software
+            engineer finishing my M.S. in Applied Data Science at USC. I work across
+            the stack, from backend services and data pipelines to machine
+            learning models and LLM agents, and I care about shipping things that
+            are tested, measured, and reliable.
           </p>
 
           <div className="md:col-span-7 md:col-start-6">

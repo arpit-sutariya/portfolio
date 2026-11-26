@@ -2,7 +2,7 @@ export const PERSONAL = {
   name: "Arpit Sutariya",
   firstName: "Arpit",
   lastName: "Sutariya",
-  title: "Data & ML Engineer",
+  title: "Software Engineer",
   email: "arpitsutariya13@gmail.com",
   phone: "+1 (408) 385-4081",
   location: "Los Angeles, California",
@@ -10,7 +10,7 @@ export const PERSONAL = {
   github: "https://github.com/arpit-sutariya",
   status: "Software Engineering Intern @ Amazon Music · Summer 2026",
   tagline:
-    "I build data pipelines, retrieval systems, and AI agents that are safe to trust: from PySpark jobs on EMR and Airflow-orchestrated warehouses to LLM agents with human approval, evals, and failure testing built in.",
+    "I build software, data systems, and AI that people can trust: backend services, data pipelines, machine learning models, and LLM agents, all tested and measured.",
 };
 
 export const HIGHLIGHTS = [

@@ -25,8 +25,8 @@ export default function Contact() {
           <div className="mt-8 grid gap-8 md:mt-10 md:grid-cols-12">
             <p className="max-w-[420px] text-[0.92rem] leading-[1.65] text-muted md:col-span-5">
               I&apos;m graduating in December 2026 and looking for full-time roles
-              in data engineering, ML engineering, and applied AI. The fastest way
-              to reach me is email.
+              in software engineering, data science, data engineering, and
+              machine learning. The fastest way to reach me is email.
             </p>
 
             <div className="md:col-span-7">
