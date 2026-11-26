@@ -1,101 +1,118 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { NAV_LINKS, PERSONAL } from "@/lib/data";
+import { useEffect, useState } from "react";
+import { NAV_LINKS } from "@/lib/data";
+
+function useLATime() {
+  const [time, setTime] = useState("");
+  useEffect(() => {
+    const fmt = new Intl.DateTimeFormat("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: "America/Los_Angeles",
+    });
+    const tick = () => setTime(fmt.format(new Date()));
+    tick();
+    const id = setInterval(tick, 30_000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+}
+
+function ThemeToggle() {
+  const toggle = () => {
+    const root = document.documentElement;
+    const current =
+      root.dataset.theme ??
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = current === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+  };
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Toggle light and dark theme"
+      className="group relative grid h-7 w-7 place-items-center"
+    >
+      <span className="block h-3.5 w-3.5 rounded-full border border-ink bg-[linear-gradient(90deg,rgb(var(--ink))_50%,transparent_50%)]" />
+    </button>
+  );
+}
 
 export default function Navbar() {
+  const time = useLATime();
   const [open, setOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    let last = 0;
-    const onScroll = () => {
-      const y = window.scrollY;
-      setHidden(y > last && y > 200);
-      setScrolled(y > 40);
-      last = y;
-    };
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-        hidden ? "-translate-y-full" : "translate-y-0"
-      } ${scrolled ? "backdrop-blur-xl bg-bg/70 border-b border-border" : ""}`}
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        scrolled || open ? "bg-paper/85 backdrop-blur-md" : ""
+      }`}
     >
-      <div className="max-w-[1100px] mx-auto px-5 md:px-8 flex items-center justify-between h-16">
-        {/* Logo */}
-        <a
-          href="#"
-          className="font-mono text-[0.82rem] font-medium tracking-wider text-accent"
-        >
-          {PERSONAL.firstName.toLowerCase()}.sutariya
+      <nav className="mx-auto grid h-14 max-w-page grid-cols-[1fr_auto] items-center gap-6 px-5 md:grid-cols-[1fr_auto_1fr] md:px-10">
+        <a href="#top" className="text-[0.85rem] font-medium tracking-tight">
+          Arpit Sutariya
+          <span className="ml-2 hidden font-serif text-[0.95rem] italic text-muted lg:inline">
+            data &amp; ml engineer
+          </span>
         </a>
 
-        {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="relative text-[0.78rem] font-medium tracking-[0.08em] uppercase text-muted hover:text-white transition-colors duration-300 group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" />
+        <ul className="hidden items-center gap-7 md:flex">
+          {NAV_LINKS.map((l) => (
+            <li key={l.href}>
+              <a href={l.href} className="ulink text-[0.82rem]">
+                {l.label}
               </a>
             </li>
           ))}
         </ul>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden flex flex-col justify-center items-center w-7 h-5 gap-[5px] group"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          <span
-            className={`block w-full h-[1.5px] bg-white transition-all duration-300 origin-center ${
-              open ? "translate-y-[6.5px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block w-full h-[1.5px] bg-white transition-all duration-300 ${
-              open ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`block w-full h-[1.5px] bg-white transition-all duration-300 origin-center ${
-              open ? "-translate-y-[6.5px] -rotate-45" : ""
-            }`}
-          />
-        </button>
-      </div>
+        <div className="flex items-center justify-end gap-4">
+          <span className="label hidden tabular-nums sm:inline" suppressHydrationWarning>
+            LA {time}
+          </span>
+          <ThemeToggle />
+          <button
+            className="label md:hidden"
+            onClick={() => setOpen(!open)}
+            aria-expanded={open}
+          >
+            {open ? "Close" : "Menu"}
+          </button>
+        </div>
+      </nav>
 
-      {/* Mobile Menu */}
       <div
-        className={`md:hidden fixed top-16 left-0 right-0 bg-bg/95 backdrop-blur-xl border-b border-border transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          open
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-4 pointer-events-none"
+        className={`overflow-hidden transition-[max-height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+          open ? "max-h-[420px]" : "max-h-0"
         }`}
       >
-        <ul className="flex flex-col items-center gap-6 py-8">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
+        <ul className="rule mx-5 border-t pb-6 pt-2">
+          {NAV_LINKS.map((l, i) => (
+            <li key={l.href} className="rule border-b">
               <a
-                href={link.href}
+                href={l.href}
                 onClick={() => setOpen(false)}
-                className="text-sm font-medium tracking-[0.08em] uppercase text-muted hover:text-white transition-colors"
+                className="flex items-baseline justify-between py-3 font-serif text-[1.5rem] leading-tight"
               >
-                {link.label}
+                {l.label}
+                <span className="label">0{i + 1}</span>
               </a>
             </li>
           ))}
         </ul>
       </div>
-    </nav>
+    </header>
   );
 }

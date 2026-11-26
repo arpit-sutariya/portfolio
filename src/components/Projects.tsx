@@ -1,100 +1,175 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useInView } from "@/lib/useInView";
-import { PROJECTS } from "@/lib/data";
-import { ArrowUpRight } from "lucide-react";
+import {
+  AGENT_PROJECTS,
+  DATA_PROJECTS,
+  MORE_PROJECTS,
+  PERSONAL,
+  type Project,
+} from "@/lib/data";
+import Reveal from "./Reveal";
 import SectionHeader from "./SectionHeader";
 
-const ease = [0.22, 1, 0.36, 1];
+function ProjectRow({ project, index }: { project: Project; index: number }) {
+  const inner = (
+    <div className="grid gap-5 py-8 md:grid-cols-12 md:gap-8 md:py-10">
+      <div className="md:col-span-5">
+        <div className="flex items-baseline gap-4">
+          <span className="font-mono text-[0.68rem] tabular-nums text-muted">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <h4 className="font-serif text-[clamp(1.5rem,2.4vw,1.9rem)] leading-[1.05] transition-colors duration-300 group-hover:text-accent">
+            {project.title}
+          </h4>
+        </div>
+        <p className="mt-2 pl-9 text-[0.86rem] text-muted">{project.subtitle}</p>
+      </div>
 
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: (typeof PROJECTS)[0];
-  index: number;
-}) {
-  const { ref, isInView } = useInView<HTMLAnchorElement>();
+      <div className="md:col-span-7">
+        <p className="max-w-[620px] text-[0.9rem] leading-[1.7]">{project.description}</p>
+
+        <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
+          {project.metrics.map((m) => (
+            <div key={m.label}>
+              <dd className="font-serif text-[1.4rem] leading-none">{m.value}</dd>
+              <dt className="label mt-1.5">{m.label}</dt>
+            </div>
+          ))}
+        </dl>
+
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+          <p className="font-mono text-[0.68rem] text-muted">
+            {project.tech.join("  /  ")}
+          </p>
+          {project.link && (
+            <span className="text-[0.84rem]">
+              <span className="ulink">View source</span>{" "}
+              <span className="text-accent">
+                ↗
+              </span>
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <motion.a
-      ref={ref}
-      href={project.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 24 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, ease, delay: index * 0.12 }}
-      className="group relative flex flex-col bg-bg-card border border-border rounded-xl p-7 hover:border-border-hover hover:bg-bg-card-hover hover:-translate-y-1 transition-all duration-400 cursor-pointer"
-    >
-      {/* Top accent line */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl" />
+    <Reveal>
+      {project.link ? (
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rule group block border-t"
+        >
+          {inner}
+        </a>
+      ) : (
+        <div className="rule group border-t">{inner}</div>
+      )}
+    </Reveal>
+  );
+}
 
-      <span className="font-mono text-[0.7rem] text-accent tracking-widest mb-4">
-        {String(index + 1).padStart(2, "0")}
-      </span>
-
-      <h3 className="font-serif text-[1.4rem] font-normal mb-1">
-        {project.title}
-      </h3>
-      <p className="text-[0.78rem] text-accent/70 mb-4 font-medium">
-        {project.subtitle}
-      </p>
-
-      <p className="text-[0.87rem] text-muted leading-[1.65] flex-grow mb-5">
-        {project.description}
-      </p>
-
-      {/* Metrics */}
-      <div className="flex gap-4 mb-5">
-        {project.metrics.map((m) => (
-          <div key={m.label} className="flex flex-col">
-            <span className="font-mono text-[1.1rem] font-medium text-white">
-              {m.value}
-            </span>
-            <span className="font-mono text-[0.62rem] text-muted tracking-wide uppercase">
-              {m.label}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* Tech tags */}
-      <div className="flex flex-wrap gap-1.5 mb-5">
-        {project.tech.map((t) => (
-          <span
-            key={t}
-            className="font-mono text-[0.67rem] px-2.5 py-1 bg-accent-dim text-accent rounded tracking-wide"
-          >
-            {t}
-          </span>
-        ))}
-      </div>
-
-      {/* Link */}
-      <span className="font-mono text-[0.75rem] text-accent flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-300">
-        View on GitHub
-        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-      </span>
-    </motion.a>
+function Group({
+  letter,
+  title,
+  note,
+  items,
+  offset,
+}: {
+  letter: string;
+  title: string;
+  note: string;
+  items: Project[];
+  offset: number;
+}) {
+  return (
+    <div className="mt-6 first:mt-0">
+      <Reveal className="mb-2 flex flex-wrap items-baseline justify-between gap-2 pt-6">
+        <h3 className="font-serif text-[1.25rem] italic">
+          <span className="label mr-3 not-italic">({letter})</span>
+          {title}
+        </h3>
+        <p className="label">{note}</p>
+      </Reveal>
+      {items.map((p, i) => (
+        <ProjectRow key={p.title} project={p} index={offset + i} />
+      ))}
+    </div>
   );
 }
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-[clamp(4rem,8vw,7rem)]">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-8">
+    <section id="projects" className="py-20 md:py-28">
+      <div className="mx-auto max-w-page px-5 md:px-10">
         <SectionHeader
-          label="03 / Projects"
-          title="Selected Work"
-          description="Projects combining data science, AI engineering, and thoughtful product design."
+          index="02"
+          label="Selected work"
+          aside={`${AGENT_PROJECTS.length + DATA_PROJECTS.length} projects`}
+          title={
+            <>
+              Things I&apos;ve <em>built</em>
+            </>
+          }
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {PROJECTS.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
-          ))}
+        <Group
+          letter="A"
+          title="AI agents"
+          note="Each ships with tests & a reproducible eval"
+          items={AGENT_PROJECTS}
+          offset={0}
+        />
+        <Group
+          letter="B"
+          title="Data engineering & analytics"
+          note="Pipelines, warehouses, NL-to-SQL"
+          items={DATA_PROJECTS}
+          offset={AGENT_PROJECTS.length}
+        />
+
+        {/* Earlier work */}
+        <div className="mt-6 pt-6">
+          <Reveal className="mb-6 flex flex-wrap items-baseline justify-between gap-2">
+            <h3 className="font-serif text-[1.25rem] italic">
+              <span className="label mr-3 not-italic">(C)</span>
+              Earlier work
+            </h3>
+            <a
+              href={PERSONAL.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="label ulink !text-ink"
+            >
+              All repositories ↗
+            </a>
+          </Reveal>
+          <ul>
+            {MORE_PROJECTS.map((p) => (
+              <li key={p.title}>
+                <a
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rule group grid gap-1 border-t py-4 md:grid-cols-12 md:items-baseline md:gap-8"
+                >
+                  <span className="font-serif text-[1.2rem] leading-tight transition-colors group-hover:text-accent md:col-span-3">
+                    {p.title}
+                  </span>
+                  <span className="text-[0.86rem] text-muted md:col-span-6">
+                    {p.description}
+                  </span>
+                  <span className="flex items-baseline justify-between gap-3 font-mono text-[0.66rem] text-muted md:col-span-3">
+                    {p.tech}
+                    <span className="text-[0.85rem] text-accent">
+                      ↗
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

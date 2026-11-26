@@ -1,70 +1,91 @@
-"use client";
+import { HIGHLIGHTS, PERSONAL } from "@/lib/data";
 
-import { motion } from "framer-motion";
-import { PERSONAL } from "@/lib/data";
+const facts = [
+  { k: "Currently", v: "Software Engineering Intern, Amazon Music", s: "Summer 2026" },
+  { k: "Previously", v: "Graduate Research Assistant, USC Viterbi", s: "2025 – 2026" },
+  { k: "Studying", v: "M.S. Applied Data Science, USC", s: "Graduating Dec 2026" },
+  { k: "Based in", v: "Los Angeles, California", s: "Pacific Time" },
+];
 
-const ease = [0.22, 1, 0.36, 1];
+const socials = [
+  { label: "Email", href: `mailto:${PERSONAL.email}` },
+  { label: "LinkedIn", href: PERSONAL.linkedin },
+  { label: "GitHub", href: PERSONAL.github },
+];
+
+// Hairline borders for the 2×2 (mobile) / 1×4 (desktop) numbers grid
+const CELL = [
+  "border-b lg:border-b-0",
+  "border-b border-l pl-5 lg:border-b-0 lg:pl-8",
+  "lg:border-l lg:pl-8",
+  "border-l pl-5 lg:pl-8",
+];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center pt-16">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-8 w-full">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease, delay: 0.2 }}
-          className="font-mono text-[0.73rem] tracking-[0.15em] uppercase text-accent mb-6"
-        >
-          Data Scientist · ML Engineer · Full Stack Developer · USC &apos;26
-        </motion.p>
+    <section id="top" className="pt-24 md:pt-32">
+      <div className="mx-auto max-w-page px-5 md:px-10">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="label">Portfolio &nbsp;/&nbsp; 2026</p>
+          <p className="label flex items-center gap-2 !text-ink">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            Available for full-time roles
+          </p>
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease, delay: 0.4 }}
-          className="text-[clamp(2.8rem,7vw,5.5rem)] font-normal leading-[1.06] tracking-tight mb-6"
-          style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900 }}
-        >
-          
-          <i>{PERSONAL.firstName}</i>
-          <br />
-          <i>{PERSONAL.lastName}</i>
-          <em className="text-accent">.</em>
-        </motion.h1>
+        <h1 className="mt-8 max-w-[900px] font-serif text-[clamp(2.4rem,5.6vw,4.75rem)] leading-[1] tracking-[-0.02em] md:mt-12">
+          I build data systems &amp; <em className="text-accent">AI agents</em> you
+          can actually <em>trust.</em>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease, delay: 0.6 }}
-          className="text-[clamp(1rem,1.8vw,1.15rem)] text-muted max-w-[520px] leading-relaxed mb-10"
-        >
-          {PERSONAL.tagline}
-        </motion.p>
+        <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-12">
+          <p className="max-w-[420px] text-[0.95rem] leading-[1.65] text-muted md:col-span-5">
+            <span className="text-ink">Hi, I&apos;m Arpit,</span> a data &amp; ML
+            engineer. I design pipelines that move millions of records, retrieval
+            systems that find the right thing, and LLM agents with human approval,
+            evals, and failure testing built in.
+          </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease, delay: 0.8 }}
-          className="flex gap-4 flex-wrap"
-        >
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-accent text-bg text-[0.85rem] font-medium tracking-wide rounded-md border border-accent hover:bg-[#d4b578] hover:shadow-[0_4px_24px_rgba(201,169,110,0.25)] transition-all duration-300"
-          >
-            View Projects
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-transparent text-white text-[0.85rem] font-medium tracking-wide rounded-md border border-border-hover hover:border-accent hover:text-accent transition-all duration-300"
-          >
-            Get in Touch
-          </a>
-        </motion.div>
+          <div className="md:col-span-7 md:col-start-6">
+            <dl className="grid grid-cols-1 gap-x-8 sm:grid-cols-2">
+              {facts.map((f) => (
+                <div key={f.k} className="rule border-t py-3.5">
+                  <dt className="label">({f.k})</dt>
+                  <dd className="mt-1.5 text-[0.88rem] leading-snug">{f.v}</dd>
+                  <dd className="mt-0.5 text-[0.78rem] text-muted">{f.s}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="ulink text-[0.88rem]"
+                >
+                  {s.label} <span className="text-accent">↗</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Numbers */}
+        <dl className="rule mt-16 grid grid-cols-2 border-t md:mt-20 lg:grid-cols-4">
+          {HIGHLIGHTS.map((h, i) => (
+            <div key={h.label} className={`rule py-8 pr-4 md:py-10 ${CELL[i]}`}>
+              <dd className="font-serif text-[clamp(1.9rem,3vw,2.6rem)] leading-none tracking-[-0.01em]">
+                {h.value}
+              </dd>
+              <dt className="mt-2.5 max-w-[220px] text-[0.8rem] leading-snug text-muted">
+                {h.label}
+              </dt>
+            </div>
+          ))}
+        </dl>
       </div>
-
-      {/* Ambient orb */}
-      <div className="absolute right-[-5%] top-[20%] w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle,rgba(201,169,110,0.07)_0%,transparent_70%)] blur-[60px] animate-float pointer-events-none md:block hidden" />
-      <div className="absolute left-[-8%] bottom-[10%] w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(201,169,110,0.04)_0%,transparent_70%)] blur-[80px] pointer-events-none" />
     </section>
   );
 }
