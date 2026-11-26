@@ -1,6 +1,6 @@
 # Arpit Sutariya — Portfolio
 
-A modern, responsive portfolio built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**.
+A minimal, editorial portfolio built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**, with light and dark themes.
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript)
@@ -11,15 +11,14 @@ A modern, responsive portfolio built with **Next.js 15**, **TypeScript**, **Tail
 - **Framework:** Next.js 15 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
+- **Fonts:** Instrument Serif, Instrument Sans, Geist Mono (via `next/font`)
 - **Deployment:** Vercel
 
 ## Getting Started
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/portfolio.git
+git clone https://github.com/arpit-sutariya/portfolio.git
 cd portfolio
 
 # Install dependencies
@@ -54,21 +53,21 @@ All personal data lives in `src/lib/data.ts`. Edit your:
 ```
 src/
 ├── app/
-│   ├── globals.css      # Tailwind + custom styles
+│   ├── globals.css      # Theme tokens (light/dark) + base styles
 │   ├── layout.tsx       # Root layout with metadata
 │   └── page.tsx         # Main page composing all sections
 ├── components/
 │   ├── Navbar.tsx       # Fixed nav with mobile menu
-│   ├── Hero.tsx         # Animated hero section
+│   ├── Hero.tsx         # Intro, quick facts, key numbers
 │   ├── SectionHeader.tsx # Reusable section headers
-│   ├── Skills.tsx       # Skills grid
-│   ├── Experience.tsx   # Timeline experience
-│   ├── Projects.tsx     # Project cards with metrics
-│   ├── Education.tsx    # Education cards
+│   ├── Reveal.tsx       # Layout wrapper
+│   ├── Experience.tsx   # Experience rows
+│   ├── Projects.tsx     # Project index (agents, data, earlier work)
+│   ├── Skills.tsx       # Toolkit
+│   ├── Education.tsx    # Education rows
 │   └── Contact.tsx      # Contact + footer
 └── lib/
-    ├── data.ts          # All portfolio content
-    └── useInView.ts     # Scroll-triggered animation hook
+    └── data.ts          # All portfolio content
 ```
 
 ## License

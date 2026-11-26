@@ -1,55 +1,28 @@
-"use client";
+import Reveal from "./Reveal";
 
-import { motion } from "framer-motion";
-import { useInView } from "@/lib/useInView";
-
-interface SectionHeaderProps {
-  label: string;
-  title: string;
-  description?: string;
-  center?: boolean;
-}
-
-const ease = [0.22, 1, 0.36, 1];
-
+/** Editorial section opener: hairline rule, "(01) Label", big serif title. */
 export default function SectionHeader({
+  index,
   label,
   title,
-  description,
-  center = false,
-}: SectionHeaderProps) {
-  const { ref, isInView } = useInView();
-
+  aside,
+}: {
+  index: string;
+  label: string;
+  title: React.ReactNode;
+  aside?: React.ReactNode;
+}) {
   return (
-    <div ref={ref} className={center ? "text-center" : ""}>
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease }}
-        className="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-accent mb-3"
-      >
-        {label}
-      </motion.p>
-      <motion.h2
-        initial={{ opacity: 0, y: 16 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease, delay: 0.1 }}
-        className="font-serif text-[clamp(2rem,4vw,3rem)] font-normal mb-4"
-      >
-        <i>{title}</i>
-      </motion.h2>
-      {description && (
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease, delay: 0.2 }}
-          className={`text-muted leading-relaxed mb-10 max-w-[560px] ${
-            center ? "mx-auto" : ""
-          }`}
-        >
-          {description}
-        </motion.p>
-      )}
-    </div>
+    <Reveal className="mb-10 md:mb-14">
+      <div className="rule flex items-center justify-between border-t pt-4">
+        <p className="label">
+          ({index}) &nbsp;{label}
+        </p>
+        {aside && <div className="label hidden sm:block">{aside}</div>}
+      </div>
+      <h2 className="mt-6 font-serif text-[clamp(2rem,4vw,3.25rem)] leading-[1] tracking-[-0.01em]">
+        {title}
+      </h2>
+    </Reveal>
   );
 }

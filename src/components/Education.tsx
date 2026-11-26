@@ -1,60 +1,46 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useInView } from "@/lib/useInView";
 import { EDUCATION } from "@/lib/data";
+import Reveal from "./Reveal";
 import SectionHeader from "./SectionHeader";
-import { GraduationCap } from "lucide-react";
-
-const ease = [0.22, 1, 0.36, 1];
 
 export default function Education() {
-  const { ref, isInView } = useInView({ threshold: 0.1 });
-
   return (
-    <section id="education" className="py-[clamp(4rem,8vw,7rem)]">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-8">
-        <SectionHeader label="04 / Education" title="Academic Background" />
+    <section id="education" className="py-20 md:py-28">
+      <div className="mx-auto max-w-page px-5 md:px-10">
+        <SectionHeader
+          index="04"
+          label="Education"
+          title={
+            <>
+              Where I <em>studied</em>
+            </>
+          }
+        />
 
-        <div
-          ref={ref}
-          className="grid grid-cols-1 md:grid-cols-2 gap-5"
-        >
-          {EDUCATION.map((edu, i) => (
-            <motion.div
-              key={edu.school}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, ease, delay: i * 0.12 }}
-              className="bg-bg-card border border-border rounded-xl p-7 hover:border-border-hover transition-all duration-300"
-            >
-              <div className="flex items-start gap-3 mb-4">
-                <div className="w-9 h-9 rounded-lg bg-accent-dim flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <GraduationCap className="w-4.5 h-4.5 text-accent" />
-                </div>
-                <div>
-                  <h3 className="font-serif text-[1.15rem]">{edu.school}</h3>
-                  <p className="text-accent text-[0.88rem] mt-0.5">
-                    {edu.degree}
-                  </p>
-                </div>
+        {EDUCATION.map((edu) => (
+          <Reveal key={edu.school}>
+            <article className="rule grid gap-6 border-t py-8 md:grid-cols-12 md:gap-8 md:py-10">
+              <div className="md:col-span-3">
+                <p className="font-mono text-[0.72rem] tabular-nums">{edu.period}</p>
+                <p className="mt-1 text-[0.8rem] text-muted">{edu.location}</p>
               </div>
-
-              <div className="flex items-center gap-3 font-mono text-[0.72rem] text-muted tracking-wide mb-3">
-                <span>{edu.gpa}</span>
-                <span className="w-1 h-1 rounded-full bg-border-hover" />
-                <span>{edu.period}</span>
+              <div className="md:col-span-4">
+                <h3 className="font-serif text-[clamp(1.4rem,2.2vw,1.75rem)] leading-[1.1]">
+                  {edu.school}
+                </h3>
+                <p className="mt-2 text-[0.88rem]">{edu.degree}</p>
+                <p className="mt-1 font-serif text-[1rem] italic text-accent">
+                  {edu.gpa}
+                </p>
               </div>
-
-              <p className="text-[0.82rem] text-muted/70 leading-relaxed">
-                <span className="text-muted text-[0.72rem] font-mono tracking-wider uppercase">
-                  Coursework:{" "}
-                </span>
-                {edu.coursework}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+              <div className="md:col-span-5">
+                <p className="label">Coursework</p>
+                <p className="mt-2 text-[0.88rem] leading-[1.7] text-muted">
+                  {edu.coursework.join(", ")}
+                </p>
+              </div>
+            </article>
+          </Reveal>
+        ))}
       </div>
     </section>
   );

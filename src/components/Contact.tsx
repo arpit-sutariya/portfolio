@@ -1,84 +1,75 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useInView } from "@/lib/useInView";
 import { PERSONAL } from "@/lib/data";
-import { Mail, Linkedin, Github, ArrowUpRight } from "lucide-react";
-import SectionHeader from "./SectionHeader";
-
-const ease = [0.22, 1, 0.36, 1];
+import Reveal from "./Reveal";
 
 const links = [
-  {
-    label: PERSONAL.email,
-    href: `mailto:${PERSONAL.email}`,
-    icon: Mail,
-  },
-  {
-    label: "LinkedIn",
-    href: PERSONAL.linkedin,
-    icon: Linkedin,
-    external: true,
-  },
-  {
-    label: "GitHub",
-    href: PERSONAL.github,
-    icon: Github,
-    external: true,
-  },
+  { label: "LinkedIn", href: PERSONAL.linkedin },
+  { label: "GitHub", href: PERSONAL.github },
 ];
 
 export default function Contact() {
-  const { ref, isInView } = useInView({ threshold: 0.1 });
+  const [user, domain] = PERSONAL.email.split("@");
 
   return (
-    <>
-      <section
-        id="contact"
-        className="py-[clamp(5rem,10vw,8rem)] text-center"
-      >
-        <div className="max-w-[1100px] mx-auto px-5 md:px-8">
-          <SectionHeader
-            label="05 / Contact"
-            title="Let's Connect"
-            description="Open to opportunities in data science, machine learning, and AI engineering. Let's talk."
-            center
-          />
+    <footer id="contact" className="pt-20 md:pt-28">
+      <div className="mx-auto max-w-page px-5 md:px-10">
+        <Reveal>
+          <div className="rule flex items-center justify-between border-t pt-4">
+            <p className="label">(05) &nbsp;Contact</p>
+            <p className="label hidden sm:block">Say hello</p>
+          </div>
 
-          <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease, delay: 0.2 }}
-            className="flex justify-center gap-3 flex-wrap mt-6"
-          >
-            {links.map((link) => (
+          <h2 className="mt-8 font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em]">
+            Let&apos;s <em className="text-accent">talk.</em>
+          </h2>
+
+          <div className="mt-8 grid gap-8 md:mt-10 md:grid-cols-12">
+            <p className="max-w-[420px] text-[0.92rem] leading-[1.65] text-muted md:col-span-5">
+              I&apos;m graduating in December 2026 and looking for full-time roles
+              in data engineering, ML engineering, and applied AI. The fastest way
+              to reach me is email.
+            </p>
+
+            <div className="md:col-span-7">
               <a
-                key={link.label}
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noopener noreferrer" : undefined}
-                className="group inline-flex items-center gap-2.5 px-5 py-3 bg-bg-card border border-border rounded-lg font-mono text-[0.78rem] tracking-wide text-white hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all duration-300"
+                href={`mailto:${PERSONAL.email}`}
+                className="group block break-all font-serif text-[clamp(1.3rem,2.4vw,1.9rem)] leading-tight"
               >
-                <link.icon className="w-3.5 h-3.5" />
-                {link.label}
-                {link.external && (
-                  <ArrowUpRight className="w-3 h-3 opacity-50 group-hover:opacity-100 transition-opacity" />
-                )}
+                <span className="ulink">
+                  {user}
+                  <span className="text-muted transition-colors group-hover:text-accent">
+                    @
+                  </span>
+                  {domain}
+                </span>{" "}
+                <span className="text-accent">
+                  ↗
+                </span>
               </a>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+              <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2">
+                {links.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ulink text-[0.9rem]"
+                  >
+                    {l.label} <span className="text-accent">↗</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
 
-      {/* Footer */}
-      <footer className="border-t border-border py-6 text-center">
-        <div className="max-w-[1100px] mx-auto px-5 md:px-8">
-          <p className="font-mono text-[0.72rem] text-muted tracking-wide">
-            © {new Date().getFullYear()} {PERSONAL.name}
-          </p>
+        <div className="rule mt-20 flex flex-col gap-3 border-t py-6 text-[0.78rem] text-muted sm:flex-row sm:items-center sm:justify-between md:mt-28">
+          <p>© {new Date().getFullYear()} {PERSONAL.name}</p>
+          <p className="font-serif text-[0.92rem] italic">Designed &amp; built in Los Angeles</p>
+          <a href="#top" className="ulink text-ink">
+            Back to top ↑
+          </a>
         </div>
-      </footer>
-    </>
+      </div>
+    </footer>
   );
 }
