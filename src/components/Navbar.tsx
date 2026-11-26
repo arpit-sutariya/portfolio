@@ -64,7 +64,7 @@ export default function Navbar() {
         <a href="#top" className="text-[0.85rem] font-medium tracking-tight">
           Arpit Sutariya
           <span className="ml-2 hidden font-serif text-[0.95rem] italic text-muted lg:inline">
-            data &amp; ml engineer
+            software · data · ai
           </span>
         </a>
 

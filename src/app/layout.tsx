@@ -12,10 +12,12 @@ const sans = Instrument_Sans({ subsets: ["latin"], variable: "--font-sans" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "Arpit Sutariya | Data & ML Engineer",
+  title: "Arpit Sutariya | Software Engineer",
   description:
-    "Portfolio of Arpit Sutariya: data & ML engineer building data pipelines, retrieval systems, and AI agents. Former SWE Intern at Amazon Music, M.S. Applied Data Science at USC.",
+    "Portfolio of Arpit Sutariya: software engineer building backend systems, data pipelines, machine learning, and AI agents. Former SWE Intern at Amazon Music, M.S. Applied Data Science at USC.",
   keywords: [
+    "Software Engineering",
+    "Data Science",
     "Data Engineering",
     "Machine Learning",
     "AI Agents",
@@ -25,9 +27,9 @@ export const metadata: Metadata = {
     "Arpit Sutariya",
   ],
   openGraph: {
-    title: "Arpit Sutariya | Data & ML Engineer",
+    title: "Arpit Sutariya | Software Engineer",
     description:
-      "Data pipelines, retrieval systems, and AI agents you can trust. SWE Intern @ Amazon Music, USC M.S. Applied Data Science.",
+      "Software, data systems, and AI you can trust. SWE Intern @ Amazon Music, USC M.S. Applied Data Science.",
     type: "website",
   },
 };
